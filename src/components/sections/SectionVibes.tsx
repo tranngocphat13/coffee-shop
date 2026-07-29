@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface VibePhoto {
@@ -44,7 +44,24 @@ const VIBE_PHOTOS: VibePhoto[] = [
 ];
 
 export function SectionVibes() {
+  const sectionRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleScroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -58,12 +75,19 @@ export function SectionVibes() {
 
   return (
     <section
+      ref={sectionRef}
       id="sec-5"
-      className="flex flex-col justify-center bg-[#FDFAF5] px-6 py-20 lg:py-28 lg:px-12 relative overflow-hidden"
+      className={`flex flex-col justify-center bg-[#FDFAF5] px-6 py-20 lg:py-28 lg:px-12 relative overflow-hidden select-none transition-all duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      }`}
     >
       <div className="mx-auto max-w-6xl w-full my-auto">
-        {/* Section Top Header & Nav Arrows Aligned Right */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 w-full">
+        {/* Section Top Header & Nav Arrows with FadeInDown */}
+        <div
+          className={`flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 w-full transition-all duration-1000 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
+          }`}
+        >
           <div className="w-full flex flex-col items-center md:items-start">
             <div className="w-full flex justify-center md:justify-start items-center">
               <div className="relative inline-block text-center md:text-left">
@@ -102,15 +126,20 @@ export function SectionVibes() {
           </div>
         </div>
 
-        {/* Horizontal Scroll Track */}
+        {/* Horizontal Scroll Track with Staggered Entrance */}
         <div
           ref={scrollRef}
           className="flex gap-5 overflow-x-auto no-scrollbar py-4 px-1 scroll-smooth snap-x snap-mandatory"
         >
-          {VIBE_PHOTOS.map((vibe) => (
+          {VIBE_PHOTOS.map((vibe, index) => (
             <div
               key={vibe.id}
-              className="snap-start shrink-0 w-64 sm:w-72 aspect-[3/4] rounded-3xl overflow-hidden relative shadow-lg group border-2 border-white transform hover:-translate-y-2 transition-all duration-300"
+              className={`snap-start shrink-0 w-64 sm:w-72 aspect-[3/4] rounded-3xl overflow-hidden relative shadow-lg group border-2 border-white transform hover:-translate-y-2 transition-all duration-700 ease-out ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-12"
+              }`}
+              style={{ transitionDelay: `${index * 120}ms` }}
             >
               <img
                 src={vibe.image}

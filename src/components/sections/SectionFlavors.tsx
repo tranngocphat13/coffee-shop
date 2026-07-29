@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Drink {
@@ -75,8 +75,25 @@ const LAYER_MAP: Record<string, "front" | "back"> = {
 };
 
 export function SectionFlavors() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev === 0 ? DRINKS.length - 1 : prev - 1));
@@ -101,12 +118,19 @@ export function SectionFlavors() {
 
   return (
     <section
+      ref={sectionRef}
       id="sec-3"
-      className="flex flex-col justify-center bg-[#FDFAF5] px-4 sm:px-6 py-15 lg:py-15 lg:min-h-screen relative overflow-hidden select-none"
+      className={`flex flex-col justify-center bg-[#FDFAF5] px-4 sm:px-6 py-15 lg:py-15 lg:min-h-screen relative overflow-hidden select-none transition-all duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      }`}
     >
       <div className="mx-auto max-w-6xl w-full my-auto flex flex-col items-center">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mb-8 sm:mb-12 w-full">
+        {/* Section Header with FadeInDown */}
+        <div
+          className={`text-center max-w-2xl mb-8 sm:mb-12 w-full transition-all duration-1000 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
+          }`}
+        >
           <div className="w-full flex justify-center items-center">
             <div className="relative inline-block text-center">
               <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none whitespace-nowrap text-center">
@@ -163,8 +187,11 @@ export function SectionFlavors() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Active Product Name */}
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1F1B16] mb-3 tracking-tight">
+          {/* Active Product Name with Smooth Fade Transition */}
+          <h3
+            key={`title-${activeDrink.id}`}
+            className="text-2xl sm:text-3xl font-extrabold text-[#1F1B16] mb-3 tracking-tight transition-all duration-300 animate-fadeIn"
+          >
             {activeDrink.name}
           </h3>
 
@@ -179,9 +206,12 @@ export function SectionFlavors() {
               <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
-            {/* Centered Product Description (Fixed height container prevents layout jumping) */}
+            {/* Centered Product Description */}
             <div className="flex items-center justify-center min-h-[64px] sm:min-h-[72px]">
-              <p className="text-xs sm:text-base text-[#7A7268] text-center leading-relaxed font-medium">
+              <p
+                key={`desc-${activeDrink.id}`}
+                className="text-xs sm:text-base text-[#7A7268] text-center leading-relaxed font-medium transition-all duration-300 animate-fadeIn"
+              >
                 {activeDrink.description}
               </p>
             </div>

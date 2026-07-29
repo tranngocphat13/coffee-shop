@@ -7,9 +7,18 @@ export function SectionHero() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Trigger fade-up animation on mount
-    const timer = setTimeout(() => setVisible(true), 200);
-    return () => clearTimeout(timer);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -23,10 +32,36 @@ export function SectionHero() {
     <section
       ref={sectionRef}
       id="sec-1"
-      className="relative min-h-screen h-screen w-full bg-[#FDFAF5] overflow-hidden flex flex-col items-center justify-between select-none"
+      className={`relative min-h-screen h-screen w-full bg-[#FDFAF5] overflow-hidden flex flex-col items-center justify-between select-none transition-all duration-700 ease-out origin-center ${
+        visible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      }`}
     >
+      {/* Background Ambient Ice Sparkles */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <div
+          className="absolute top-1/4 left-1/6 w-2.5 h-2.5 rounded-full bg-[#C97B3D]/30 blur-[1px] animate-sparkle"
+          style={{ "--sparkle-duration": "6s", "--sparkle-delay": "0s" } as React.CSSProperties}
+        />
+        <div
+          className="absolute top-1/3 right-1/5 w-3.5 h-3.5 rounded-full bg-[#4A3626]/20 blur-[1px] animate-sparkle"
+          style={{ "--sparkle-duration": "7.5s", "--sparkle-delay": "1.2s" } as React.CSSProperties}
+        />
+        <div
+          className="absolute top-1/2 left-1/12 w-2 h-2 rounded-full bg-[#C97B3D]/40 blur-[0.5px] animate-sparkle"
+          style={{ "--sparkle-duration": "5.5s", "--sparkle-delay": "2.5s" } as React.CSSProperties}
+        />
+        <div
+          className="absolute top-2/3 right-1/8 w-3 h-3 rounded-full bg-[#C97B3D]/25 blur-[1px] animate-sparkle"
+          style={{ "--sparkle-duration": "8s", "--sparkle-delay": "0.8s" } as React.CSSProperties}
+        />
+      </div>
+
       {/* 1. Content Block (Text & Buttons) */}
-      <div className="relative z-10 flex flex-col items-center text-center pt-24 sm:pt-28 lg:pt-32 px-6 max-w-4xl mx-auto">
+      <div
+        className={`relative z-10 flex flex-col items-center text-center pt-24 sm:pt-28 lg:pt-32 px-6 max-w-4xl mx-auto transition-all duration-1000 ease-out ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
         {/* Heading 1 */}
         <div className="w-full flex justify-center items-center">
           <div className="relative inline-block text-center">

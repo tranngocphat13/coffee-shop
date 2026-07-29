@@ -42,31 +42,35 @@ export function Navbar() {
           </span>
         </button>
 
-        {/* Desktop Menu — Centered & Bold */}
+        {/* Desktop Menu — Centered & Bold with Hover Underline Indicator */}
         <nav className="hidden md:flex items-center gap-8 lg:gap-10 absolute left-1/2 -translate-x-1/2">
           <button
             onClick={() => scrollToSection("sec-3")}
-            className="text-sm font-bold text-[#1F1B16] hover:text-[#C97B3D] transition-colors cursor-pointer"
+            className="text-sm font-bold text-[#1F1B16] hover:text-[#C97B3D] transition-colors cursor-pointer relative group py-1"
           >
-            Menu
+            <span>Menu</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C97B3D] transition-all duration-300 group-hover:w-full rounded-full" />
           </button>
           <button
             onClick={() => scrollToSection("sec-7")}
-            className="text-sm font-bold text-[#1F1B16] hover:text-[#C97B3D] transition-colors cursor-pointer"
+            className="text-sm font-bold text-[#1F1B16] hover:text-[#C97B3D] transition-colors cursor-pointer relative group py-1"
           >
-            Discounts
+            <span>Discounts</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C97B3D] transition-all duration-300 group-hover:w-full rounded-full" />
           </button>
           <button
             onClick={() => scrollToSection("sec-5")}
-            className="text-sm font-bold text-[#1F1B16] hover:text-[#C97B3D] transition-colors cursor-pointer"
+            className="text-sm font-bold text-[#1F1B16] hover:text-[#C97B3D] transition-colors cursor-pointer relative group py-1"
           >
-            Gallery
+            <span>Gallery</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C97B3D] transition-all duration-300 group-hover:w-full rounded-full" />
           </button>
           <button
             onClick={() => scrollToSection("sec-6")}
-            className="text-sm font-bold text-[#1F1B16] hover:text-[#C97B3D] transition-colors cursor-pointer"
+            className="text-sm font-bold text-[#1F1B16] hover:text-[#C97B3D] transition-colors cursor-pointer relative group py-1"
           >
-            Locations
+            <span>Locations</span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C97B3D] transition-all duration-300 group-hover:w-full rounded-full" />
           </button>
         </nav>
 

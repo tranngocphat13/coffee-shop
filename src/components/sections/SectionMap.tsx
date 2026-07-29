@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MapPin, Navigation, Clock, Phone, CheckCircle } from "lucide-react";
 
 interface Store {
@@ -44,17 +44,41 @@ const STORES: Store[] = [
 ];
 
 export function SectionMap() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [activeStoreId, setActiveStoreId] = useState(1);
   const activeStore = STORES.find((s) => s.id === activeStoreId) || STORES[0];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="sec-6"
-      className="flex flex-col justify-center bg-[#FDFAF5] px-6 py-20 lg:py-28 lg:px-12 relative overflow-hidden"
+      className={`flex flex-col justify-center bg-[#FDFAF5] px-6 py-20 lg:py-28 lg:px-12 relative overflow-hidden select-none transition-all duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      }`}
     >
       <div className="mx-auto max-w-6xl w-full my-auto">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 w-full">
+        {/* Header with FadeInDown */}
+        <div
+          className={`text-center max-w-2xl mx-auto mb-12 sm:mb-16 w-full transition-all duration-1000 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
+          }`}
+        >
           <div className="w-full flex justify-center items-center">
             <div className="relative inline-block text-center">
               <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none whitespace-nowrap text-center">
@@ -72,8 +96,12 @@ export function SectionMap() {
 
         {/* 2 Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left Column */}
-          <div className="lg:col-span-5 flex flex-col gap-4">
+          {/* Left Column: Store list with FadeInLeft */}
+          <div
+            className={`lg:col-span-5 flex flex-col gap-4 transition-all duration-1000 ease-out ${
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+            }`}
+          >
             <h3 className="text-xs font-extrabold uppercase tracking-widest text-[#1F1B16]/70 mb-1">
               Our Coffee Shops
             </h3>
@@ -84,10 +112,10 @@ export function SectionMap() {
                 <div
                   key={store.id}
                   onClick={() => setActiveStoreId(store.id)}
-                  className={`cursor-pointer rounded-3xl p-5 transition-all duration-300 border ${
+                  className={`cursor-pointer rounded-3xl p-5 transition-all duration-300 border active:scale-[0.98] ${
                     isActive
-                      ? "bg-[#F0E4D4] shadow-xl border-[#C97B3D] ring-2 ring-[#C97B3D]/30 scale-[1.02]"
-                      : "bg-white/70 hover:bg-[#F0E4D4]/50 border-black/5 shadow-xs"
+                      ? "bg-[#F0E4D4] shadow-xl border-[#C97B3D] ring-4 ring-[#C97B3D]/25 scale-[1.03] -translate-y-0.5"
+                      : "bg-white/70 hover:bg-[#F0E4D4]/50 hover:-translate-y-0.5 border-black/5 shadow-xs"
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -124,8 +152,12 @@ export function SectionMap() {
             })}
           </div>
 
-          {/* Right Column */}
-          <div className="lg:col-span-7 bg-[#F0E4D4] rounded-3xl p-3 shadow-xl border-4 border-white overflow-hidden relative flex flex-col min-h-[360px] sm:min-h-[440px]">
+          {/* Right Column: Map Frame with Scale-Up Entrance */}
+          <div
+            className={`lg:col-span-7 bg-[#F0E4D4] rounded-3xl p-3 shadow-xl border-4 border-white overflow-hidden relative flex flex-col min-h-[360px] sm:min-h-[440px] transition-all duration-1000 ease-out ${
+              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+            }`}
+          >
             {/* Map Header Overlay */}
             <div className="absolute top-6 left-6 z-10 bg-[#1F1B16] text-white p-4 rounded-2xl shadow-lg border border-white/20 max-w-xs">
               <p className="text-[10px] uppercase tracking-widest font-extrabold text-[#C97B3D]">

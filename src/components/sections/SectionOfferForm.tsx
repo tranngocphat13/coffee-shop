@@ -1,13 +1,30 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import { CheckCircle2 } from "lucide-react";
 
 export function SectionOfferForm() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -22,12 +39,19 @@ export function SectionOfferForm() {
 
   return (
     <section
+      ref={sectionRef}
       id="sec-7"
-      className="flex flex-col justify-center bg-[#FDFAF5] py-16 lg:py-24 relative overflow-hidden"
+      className={`flex flex-col justify-center bg-[#FDFAF5] py-16 lg:py-24 relative overflow-hidden select-none transition-all duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      }`}
     >
       <div className="mx-auto max-w-6xl w-full flex flex-col items-center px-4 sm:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-xl mx-auto mb-10 sm:mb-12 w-full">
+        {/* Section Header with FadeInDown */}
+        <div
+          className={`text-center max-w-xl mx-auto mb-10 sm:mb-12 w-full transition-all duration-1000 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
+          }`}
+        >
           <div className="w-full flex justify-center items-center">
             <div className="relative inline-block text-center">
               <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none whitespace-nowrap text-center">
@@ -42,10 +66,14 @@ export function SectionOfferForm() {
 
         {/* Bonus Wrapper */}
         <div className="bonus-wrap relative w-full max-w-5xl">
-          {/* Main Card */}
-          <div className="card relative w-full bg-[#EEDECE] rounded-[28px] sm:rounded-[36px] min-h-[380px] sm:min-h-[440px] flex items-center justify-center p-6 sm:p-12 lg:p-16 z-[1] overflow-hidden">
+          {/* Main Card with Scale Pop Entrance */}
+          <div
+            className={`card relative w-full bg-[#EEDECE] rounded-[28px] sm:rounded-[36px] min-h-[380px] sm:min-h-[440px] flex items-center justify-center p-6 sm:p-12 lg:p-16 z-[1] overflow-hidden transition-all duration-1000 ease-out ${
+              isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-6"
+            }`}
+          >
             {/* Left Cup */}
-            <div className="cup cup-left hidden sm:block absolute -bottom-[60px] -left-12 sm:-left-20 lg:-left-28 h-[95%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none">
+            <div className="cup cup-left hidden sm:block absolute -bottom-[60px] -left-12 sm:-left-20 lg:-left-28 h-[95%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none animate-float-left">
               <img
                 src="/images/hero_cup_left_transparent.png"
                 alt="Iced Matcha Drink"
@@ -92,7 +120,7 @@ export function SectionOfferForm() {
                   </button>
                 </form>
               ) : (
-                <div className="w-full flex flex-col items-center text-center py-2">
+                <div className="w-full flex flex-col items-center text-center py-2 animate-fadeIn">
                   <div className="p-3 rounded-full bg-[#3D3127]/10 text-[#3D3127] mb-3">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
@@ -106,7 +134,7 @@ export function SectionOfferForm() {
                     <span className="font-semibold text-[#2A211B]">{email}</span>.
                   </p>
 
-                  <div className="p-3.5 bg-white/90 rounded-2xl border border-dashed border-[#D0893B] w-full">
+                  <div className="p-3.5 bg-white/90 rounded-2xl border border-dashed border-[#D0893B] w-full animate-shimmer">
                     <span className="block text-[10px] uppercase font-bold text-[#7D7065] mb-1">
                       Your Promo Code
                     </span>
@@ -119,7 +147,7 @@ export function SectionOfferForm() {
             </div>
 
             {/* Right Cup */}
-            <div className="cup cup-right hidden sm:block absolute -bottom-[70px] -right-12 sm:-right-20 lg:-right-28 h-[95%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none">
+            <div className="cup cup-right hidden sm:block absolute -bottom-[70px] -right-12 sm:-right-20 lg:-right-28 h-[95%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none animate-float-right">
               <img
                 src="/images/hero_cup_right_transparent.png"
                 alt="Iced Coffee Drink"

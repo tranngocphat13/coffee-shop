@@ -9,11 +9,9 @@ export function SectionRefresh() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.2 }
+      { threshold: 0.25 }
     );
 
     if (sectionRef.current) {
@@ -27,11 +25,19 @@ export function SectionRefresh() {
     <section
       ref={sectionRef}
       id="sec-2"
-      className="relative min-h-screen lg:h-screen w-full bg-[#FDFAF5] overflow-hidden flex flex-col justify-between py-16 lg:py-20 px-6 lg:px-16 select-none"
+      className={`relative min-h-screen lg:h-screen w-full bg-[#FDFAF5] overflow-hidden flex flex-col justify-between py-16 lg:py-20 px-6 lg:px-16 select-none transition-all duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      }`}
     >
       <div className="mx-auto max-w-6xl w-full my-auto flex flex-col justify-between min-h-[480px] lg:min-h-[560px] relative z-10">
-        {/* Top Header — Centered Title & Subtitle */}
-        <div className="text-center max-w-2xl mx-auto w-full">
+        {/* Top Header — Centered Title & Subtitle with FadeInDown */}
+        <div
+          className={`text-center max-w-2xl mx-auto w-full transition-all duration-1000 ease-out ${
+            isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 -translate-y-8"
+          }`}
+        >
           <div className="w-full flex justify-center items-center">
             <div className="relative inline-block text-center">
               <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none whitespace-nowrap text-center">
@@ -47,10 +53,16 @@ export function SectionRefresh() {
           </p>
         </div>
 
-        {/* Middle Content Grid — Minimal Left Paragraph */}
+        {/* Middle Content Grid — Minimal Left Paragraph with FadeInLeft */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto pt-10 lg:pt-16">
-          {/* Left Side: Minimal Paragraph Text matching reference image */}
-          <div className="lg:col-span-5 max-w-sm">
+          {/* Left Side: Minimal Paragraph Text with FadeInLeft */}
+          <div
+            className={`lg:col-span-5 max-w-sm transition-all duration-1000 ease-out ${
+              isVisible
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-12"
+            }`}
+          >
             <p className="text-xs sm:text-sm lg:text-[15px] text-[#7A7268] font-normal leading-[1.7]">
               We crafted our summer menu so you can quickly refresh on your way to study, work, or during a walk
             </p>
