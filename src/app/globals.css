@@ -164,6 +164,18 @@ h1 span.sub {
 .slot-frontLeft   { left: 19%;   top: 52%;   width: 30%; height: 44%; z-index: 20; }
 .slot-backLeft    { left: 22%;   top: 27%;   width: 22%; height: 26%; z-index: 10; }
 
+@media (max-width: 480px) {
+  .circular-collage {
+    height: 310px;
+  }
+  .slot-backCenter  { left: 50%;   top: 15%;   width: 24%; height: 26%; }
+  .slot-backRight   { left: 78%;   top: 28%;   width: 24%; height: 26%; }
+  .slot-frontRight  { left: 82%;   top: 54%;   width: 32%; height: 44%; }
+  .slot-frontCenter { left: 50%;   top: 64%;   width: 44%; height: 58%; }
+  .slot-frontLeft   { left: 18%;   top: 54%;   width: 32%; height: 44%; }
+  .slot-backLeft    { left: 22%;   top: 28%;   width: 24%; height: 26%; }
+}
+
 @media (min-width: 640px) {
   .slot-backCenter  { left: 50%;   top: 14.5%; width: 18%; height: 26%; }
   .slot-backRight   { left: 81.5%; top: 27%;   width: 18%; height: 26%; }

@@ -75,30 +75,30 @@ export function SectionMap() {
       <div className="mx-auto max-w-6xl w-full my-auto">
         {/* Header with FadeInDown */}
         <div
-          className={`text-center max-w-2xl mx-auto mb-12 sm:mb-16 w-full transition-all duration-1000 ease-out ${
+          className={`text-center max-w-2xl mx-auto mb-10 sm:mb-16 w-full transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
           }`}
         >
           <div className="w-full flex justify-center items-center">
-            <div className="relative inline-block text-center">
-              <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none whitespace-nowrap text-center">
+            <div className="relative inline-block text-center max-w-full">
+              <h2 className="font-heading text-[24px] xs:text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none text-center">
                 DROP BY FOR REFRESHMENT
-                <span className="font-script script normal-case text-4xl sm:text-6xl lg:text-7xl text-[#C97B3D] absolute -bottom-4 sm:-bottom-7 lg:-bottom-9 right-0 pointer-events-none select-none font-normal whitespace-nowrap">
+                <span className="font-script script normal-case text-[24px] xs:text-4xl sm:text-6xl lg:text-7xl text-[#C97B3D] absolute -bottom-3 sm:-bottom-7 lg:-bottom-9 right-0 pointer-events-none select-none font-normal whitespace-nowrap">
                   With Local.
                 </span>
               </h2>
             </div>
           </div>
-          <p className="text-sm sm:text-base text-[#7A7268] font-medium mt-6">
+          <p className="text-xs sm:text-base text-[#7A7268] font-medium mt-5 sm:mt-6 px-2">
             We welcome you every day. Choose the nearest location on the map and enjoy your favorite iced coffee
           </p>
         </div>
 
         {/* 2 Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
           {/* Left Column: Store list with FadeInLeft */}
           <div
-            className={`lg:col-span-5 flex flex-col gap-4 transition-all duration-1000 ease-out ${
+            className={`lg:col-span-5 flex flex-col gap-3.5 sm:gap-4 transition-all duration-1000 ease-out ${
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
             }`}
           >
@@ -112,34 +112,34 @@ export function SectionMap() {
                 <div
                   key={store.id}
                   onClick={() => setActiveStoreId(store.id)}
-                  className={`cursor-pointer rounded-3xl p-5 transition-all duration-300 border active:scale-[0.98] ${
+                  className={`cursor-pointer rounded-2xl sm:rounded-3xl p-4 sm:p-5 transition-all duration-300 border active:scale-[0.98] ${
                     isActive
-                      ? "bg-[#F0E4D4] shadow-xl border-[#C97B3D] ring-4 ring-[#C97B3D]/25 scale-[1.03] -translate-y-0.5"
+                      ? "bg-[#F0E4D4] shadow-xl border-[#C97B3D] ring-4 ring-[#C97B3D]/25 scale-[1.01] sm:scale-[1.03] -translate-y-0.5"
                       : "bg-white/70 hover:bg-[#F0E4D4]/50 hover:-translate-y-0.5 border-black/5 shadow-xs"
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <span className="text-[10px] font-extrabold uppercase bg-[#4A3626] text-white px-2.5 py-0.5 rounded-full">
+                      <span className="text-[9px] sm:text-[10px] font-extrabold uppercase bg-[#4A3626] text-white px-2 sm:px-2.5 py-0.5 rounded-full">
                         {store.district}
                       </span>
-                      <h4 className="text-base font-black uppercase text-[#1F1B16] mt-2">
+                      <h4 className="text-sm sm:text-base font-black uppercase text-[#1F1B16] mt-2">
                         {store.name}
                       </h4>
                     </div>
                     {isActive && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-[#C97B3D]">
+                      <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-extrabold text-[#C97B3D]">
                         <CheckCircle className="w-3.5 h-3.5" /> Selected
                       </span>
                     )}
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#1F1B16] font-bold mt-2 flex items-start gap-2">
+                  <p className="text-xs sm:text-sm text-[#1F1B16] font-bold mt-2 flex items-start gap-1.5 sm:gap-2">
                     <MapPin className="w-4 h-4 text-[#C97B3D] shrink-0 mt-0.5" />
                     <span>{store.address}</span>
                   </p>
 
-                  <div className="mt-3 pt-3 border-t border-[#4A3626]/10 flex items-center justify-between text-[11px] text-[#7A7268]">
+                  <div className="mt-2.5 sm:mt-3 pt-2.5 sm:pt-3 border-t border-[#4A3626]/10 flex items-center justify-between text-[10px] sm:text-[11px] text-[#7A7268]">
                     <span className="flex items-center gap-1 font-medium">
                       <Clock className="w-3.5 h-3.5 text-[#1F1B16]" /> {store.hours}
                     </span>
@@ -154,17 +154,17 @@ export function SectionMap() {
 
           {/* Right Column: Map Frame with Scale-Up Entrance */}
           <div
-            className={`lg:col-span-7 bg-[#F0E4D4] rounded-3xl p-3 shadow-xl border-4 border-white overflow-hidden relative flex flex-col min-h-[360px] sm:min-h-[440px] transition-all duration-1000 ease-out ${
+            className={`lg:col-span-7 bg-[#F0E4D4] rounded-3xl p-2.5 sm:p-3 shadow-xl border-4 border-white overflow-hidden relative flex flex-col min-h-[300px] sm:min-h-[440px] transition-all duration-1000 ease-out ${
               isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}
           >
             {/* Map Header Overlay */}
-            <div className="absolute top-6 left-6 z-10 bg-[#1F1B16] text-white p-4 rounded-2xl shadow-lg border border-white/20 max-w-xs">
-              <p className="text-[10px] uppercase tracking-widest font-extrabold text-[#C97B3D]">
+            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 bg-[#1F1B16]/95 backdrop-blur-md text-white p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg border border-white/20 max-w-[200px] sm:max-w-xs">
+              <p className="text-[9px] sm:text-[10px] uppercase tracking-widest font-extrabold text-[#C97B3D]">
                 Location on map
               </p>
-              <h4 className="text-sm font-black uppercase mt-0.5">{activeStore.name}</h4>
-              <p className="text-[11px] text-white/80 line-clamp-1 mt-0.5">
+              <h4 className="text-xs sm:text-sm font-black uppercase mt-0.5">{activeStore.name}</h4>
+              <p className="text-[10px] sm:text-[11px] text-white/80 line-clamp-1 mt-0.5">
                 {activeStore.address}
               </p>
             </div>
@@ -176,14 +176,14 @@ export function SectionMap() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute bottom-6 right-6 z-10 bg-[#C97B3D] hover:bg-[#b56b30] text-white px-4 py-2.5 rounded-2xl font-extrabold text-xs uppercase tracking-wider shadow-xl flex items-center gap-2 transition-all active:scale-95"
+              className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10 bg-[#C97B3D] hover:bg-[#b56b30] text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl font-extrabold text-[10px] sm:text-xs uppercase tracking-wider shadow-xl flex items-center gap-1.5 sm:gap-2 transition-all active:scale-95"
             >
-              <Navigation className="w-4 h-4" />
+              <Navigation className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Get Directions</span>
             </a>
 
             {/* Embed Map Frame */}
-            <div className="w-full h-full min-h-[350px] sm:min-h-[420px] rounded-2xl overflow-hidden relative bg-[#E5E3DF]">
+            <div className="w-full h-full min-h-[300px] sm:min-h-[420px] rounded-2xl overflow-hidden relative bg-[#E5E3DF]">
               <iframe
                 title={activeStore.name}
                 src={activeStore.mapEmbedUrl}

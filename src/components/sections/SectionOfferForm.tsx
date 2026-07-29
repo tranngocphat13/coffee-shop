@@ -48,15 +48,15 @@ export function SectionOfferForm() {
       <div className="mx-auto max-w-6xl w-full flex flex-col items-center px-4 sm:px-8">
         {/* Section Header with FadeInDown */}
         <div
-          className={`text-center max-w-xl mx-auto mb-10 sm:mb-12 w-full transition-all duration-1000 ease-out ${
+          className={`text-center max-w-xl mx-auto mb-8 sm:mb-12 w-full transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
           }`}
         >
           <div className="w-full flex justify-center items-center">
-            <div className="relative inline-block text-center">
-              <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none whitespace-nowrap text-center">
+            <div className="relative inline-block text-center max-w-full">
+              <h2 className="font-heading text-[28px] xs:text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none text-center">
                 DON&apos;T MISS YOUR
-                <span className="font-script script normal-case text-4xl sm:text-6xl lg:text-7xl text-[#C97B3D] absolute -bottom-4 sm:-bottom-7 lg:-bottom-9 right-0 pointer-events-none select-none font-normal whitespace-nowrap">
+                <span className="font-script script normal-case text-[28px] xs:text-4xl sm:text-6xl lg:text-7xl text-[#C97B3D] absolute -bottom-3 sm:-bottom-7 lg:-bottom-9 right-0 pointer-events-none select-none font-normal whitespace-nowrap">
                   Bonus
                 </span>
               </h2>
@@ -68,16 +68,16 @@ export function SectionOfferForm() {
         <div className="bonus-wrap relative w-full max-w-5xl">
           {/* Main Card with Scale Pop Entrance */}
           <div
-            className={`card relative w-full bg-[#EEDECE] rounded-[28px] sm:rounded-[36px] min-h-[380px] sm:min-h-[440px] flex items-center justify-center p-6 sm:p-12 lg:p-16 z-[1] overflow-hidden transition-all duration-1000 ease-out ${
+            className={`card relative w-full bg-[#EEDECE] rounded-[24px] sm:rounded-[36px] min-h-[360px] sm:min-h-[440px] flex items-center justify-center p-5 sm:p-12 lg:p-16 z-[1] overflow-hidden transition-all duration-1000 ease-out ${
               isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-6"
             }`}
           >
             {/* Left Cup */}
-            <div className="cup cup-left hidden sm:block absolute -bottom-[60px] -left-12 sm:-left-20 lg:-left-28 h-[95%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none animate-float-left">
+            <div className="cup cup-left absolute -bottom-[40px] sm:-bottom-[60px] -left-16 sm:-left-20 lg:-left-28 h-[75%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none opacity-20 sm:opacity-100 animate-float-left">
               <img
                 src="/images/hero_cup_left_transparent.png"
                 alt="Iced Matcha Drink"
-                className="h-full w-auto object-contain object-bottom transform rotate-[45deg] scale-120"
+                className="h-full w-auto object-contain object-bottom transform rotate-[45deg] scale-90 sm:scale-120"
               />
             </div>
 
@@ -85,21 +85,21 @@ export function SectionOfferForm() {
             <div className="card-inner relative z-[3] w-full max-w-[340px] sm:max-w-[380px] text-center flex flex-col items-center">
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="w-full flex flex-col items-center">
-                  <h3 className="text-2xl sm:text-3xl font-bold text-[#2A211B] tracking-tight mb-2 sm:mb-3">
+                  <h3 className="text-xl sm:text-3xl font-bold text-[#2A211B] tracking-tight mb-2 sm:mb-3">
                     Get 15% discount
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#7D7065] font-normal leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-[#7D7065] font-normal leading-relaxed mb-5 sm:mb-6">
                     Leave your email, and we&apos;ll immediately send a promo code for your first order from our new summer collection
                   </p>
 
-                  <div className="w-full space-y-3 mb-4">
+                  <div className="w-full space-y-2.5 sm:space-y-3 mb-4">
                     <input
                       type="text"
                       required
                       placeholder="Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full h-12 sm:h-13 px-6 rounded-full bg-white border-0 text-xs sm:text-sm font-medium text-[#2A211B] placeholder:text-[#B2A69B] shadow-none focus:outline-none focus:ring-2 focus:ring-[#3D3127] transition-all"
+                      className="w-full h-11 sm:h-13 px-5 sm:px-6 rounded-full bg-white border-0 text-xs sm:text-sm font-medium text-[#2A211B] placeholder:text-[#B2A69B] shadow-none focus:outline-none focus:ring-2 focus:ring-[#3D3127] transition-all"
                     />
                     <input
                       type="email"
@@ -107,14 +107,14 @@ export function SectionOfferForm() {
                       placeholder="Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full h-12 sm:h-13 px-6 rounded-full bg-white border-0 text-xs sm:text-sm font-medium text-[#2A211B] placeholder:text-[#B2A69B] shadow-none focus:outline-none focus:ring-2 focus:ring-[#3D3127] transition-all"
+                      className="w-full h-11 sm:h-13 px-5 sm:px-6 rounded-full bg-white border-0 text-xs sm:text-sm font-medium text-[#2A211B] placeholder:text-[#B2A69B] shadow-none focus:outline-none focus:ring-2 focus:ring-[#3D3127] transition-all"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="cta w-full h-12 sm:h-13 bg-[#3D3127] hover:bg-[#2B2119] text-white rounded-full font-medium text-xs sm:text-sm transition-all active:scale-[0.99] flex items-center justify-center disabled:opacity-70 cursor-pointer"
+                    className="cta w-full h-11 sm:h-13 bg-[#3D3127] hover:bg-[#2B2119] text-white rounded-full font-medium text-xs sm:text-sm transition-all active:scale-[0.99] flex items-center justify-center disabled:opacity-70 cursor-pointer shadow-md"
                   >
                     {loading ? "Sending..." : "Get discount"}
                   </button>
@@ -147,11 +147,11 @@ export function SectionOfferForm() {
             </div>
 
             {/* Right Cup */}
-            <div className="cup cup-right hidden sm:block absolute -bottom-[70px] -right-12 sm:-right-20 lg:-right-28 h-[95%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none animate-float-right">
+            <div className="cup cup-right absolute -bottom-[45px] sm:-bottom-[70px] -right-16 sm:-right-20 lg:-right-28 h-[75%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none opacity-20 sm:opacity-100 animate-float-right">
               <img
                 src="/images/hero_cup_right_transparent.png"
                 alt="Iced Coffee Drink"
-                className="h-full w-auto object-contain object-bottom transform -rotate-[45deg] scale-130"
+                className="h-full w-auto object-contain object-bottom transform -rotate-[45deg] scale-90 sm:scale-130"
               />
             </div>
           </div>

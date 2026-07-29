@@ -33,38 +33,38 @@ export function SectionWhyVisit() {
       <div className="mx-auto max-w-6xl w-full my-auto flex flex-col justify-between relative z-10">
         {/* Section Header with FadeInDown */}
         <div
-          className={`text-center max-w-2xl mx-auto mb-12 sm:mb-16 w-full transition-all duration-1000 ease-out ${
+          className={`text-center max-w-2xl mx-auto mb-10 sm:mb-16 w-full transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
           }`}
         >
           <div className="w-full flex justify-center items-center">
-            <div className="relative inline-block text-center">
-              <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none whitespace-nowrap text-center">
+            <div className="relative inline-block text-center max-w-full">
+              <h2 className="font-heading text-[32px] xs:text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none text-center">
                 WHY VISIT
-                <span className="font-script script normal-case text-4xl sm:text-6xl lg:text-7xl text-[#C97B3D] absolute -bottom-4 sm:-bottom-7 lg:-bottom-9 right-0 pointer-events-none select-none font-normal whitespace-nowrap">
+                <span className="font-script script normal-case text-[32px] xs:text-4xl sm:text-6xl lg:text-7xl text-[#C97B3D] absolute -bottom-3 sm:-bottom-7 lg:-bottom-9 right-0 pointer-events-none select-none font-normal whitespace-nowrap">
                   us
                 </span>
               </h2>
             </div>
           </div>
-          <p className="text-xs sm:text-sm lg:text-[15px] text-[#7A7268] font-normal mt-6 max-w-md mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm lg:text-[15px] text-[#7A7268] font-normal mt-5 sm:mt-6 max-w-md mx-auto leading-relaxed px-2">
             We care about your comfort and perfect proportions
           </p>
         </div>
 
         {/* Content Grid: 2 Columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left Column: Card with Higher Top Breakout (Single-edge Bleed) + Tilted Product Shot with FadeInLeft */}
           <div
-            className={`lg:col-span-6 w-full flex justify-center pt-16 sm:pt-24 lg:pt-20 transition-all duration-1000 ease-out ${
+            className={`lg:col-span-6 w-full flex justify-center pt-12 xs:pt-16 sm:pt-24 lg:pt-20 transition-all duration-1000 ease-out ${
               isVisible ? "opacity-100 translate-x-0 scale-100" : "opacity-0 -translate-x-12 scale-95"
             }`}
           >
-            <div className="relative w-full max-w-[430px] lg:max-w-[460px] h-[390px] sm:h-[430px] bg-[#F3EAD9] rounded-[32px] sm:rounded-[40px] shadow-sm overflow-visible flex items-center justify-center">
+            <div className="relative w-full max-w-[360px] xs:max-w-[430px] lg:max-w-[460px] h-[280px] xs:h-[320px] sm:h-[430px] bg-[#F3EAD9] rounded-[28px] sm:rounded-[40px] shadow-sm overflow-visible flex items-center justify-center">
               <img
                 src="/images/4.png"
                 alt="Enlarged Tilted Product Shot 4.png"
-                className="absolute -top-20 sm:-top-24 lg:-top-28 left-1/2 -translate-x-1/2 rotate-[16deg] w-[88%] sm:w-[92%] max-w-[400px] sm:max-w-[440px] h-auto object-contain drop-shadow-2xl hover:scale-105 transition-all duration-500 select-none pointer-events-none"
+                className="absolute -top-[106px] xs:-top-[114px] sm:-top-24 lg:-top-28 left-1/2 -translate-x-1/2 rotate-[16deg] w-[88%] sm:w-[92%] max-w-[320px] xs:max-w-[400px] sm:max-w-[440px] h-auto object-contain drop-shadow-2xl hover:scale-105 transition-all duration-500 select-none pointer-events-none"
               />
             </div>
           </div>
