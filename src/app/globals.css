@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ── Brand Colors ── */
+  --color-cream: #FDFAF5;
+  --color-cream-dark: #FBF6EE;
+  --color-espresso: #1F1B16;
+  --color-[#7A7268]: #7A7268;
+  --color-terracotta: #C97B3D;
+  --color-btn-dark: #4A3626;
+  --color-card-bg: #F0E4D4;
+  --color-footer-bg: #3A2E24;
+
+  /* ── Typography ── */
+  --font-sans: var(--font-jakarta), "Inter", -apple-system, sans-serif;
+  --font-heading: var(--font-heading-main), "Montserrat", sans-serif;
+  --font-script: var(--font-heading-script), "Alex Brush", cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+h1 .script,
+h1 span.script,
+h1 span.font-script,
+h2 .script,
+h2 span.script,
+h2 span.font-script,
+.font-script {
+  font-family: var(--font-heading-script), "Alex Brush", cursive;
+  text-transform: none;
+}
+
+/* ── Base Styles ── */
+:root {
+  color-scheme: light;
+}
+
+html {
+  background-color: var(--color-cream);
+  color: var(--color-espresso);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Normal Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/*
+ * ── Thiết kế Logo Heading 1 (h1) ──
+ * Chỉ áp dụng style này cho thẻ h1 (và các thẻ span con .main, .sub bên trong h1).
+ * KHÔNG ảnh hưởng đến h2, h3 hay bất kỳ phần tử nào khác.
+ */
+h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 1. Phần chữ chính (Montserrat 800 ExtraBold, IN HOA, màu nâu đen #2b1c14) */
+h1 .main,
+h1 span.main {
+  font-family: var(--font-heading-main), "Montserrat", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #2b1c14;
+  letter-spacing: 2.5px;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1;
+}
+
+/* 2. Phần chữ phụ "Summer edition" (Alex Brush cursive, chữ thường nét bút lông, màu cam đất #d9772f) */
+h1 .sub,
+h1 span.sub {
+  font-family: var(--font-heading-script), "Alex Brush", cursive;
+  font-weight: 400;
+  text-transform: none;
+  color: #d9772f;
+  font-size: clamp(26px, 3.8vw, 36px);
+  line-height: 1;
+  margin-top: -8px;
+  align-self: flex-end;
+  transform: rotate(-2deg);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Class font-script phục vụ việc gán trực tiếp nếu cần */
+.font-script {
+  font-family: var(--font-script);
+}
+
+
+/* Hide scrollbar for clean carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom subtle scrollbar for desktop body */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(74, 54, 38, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 54, 38, 0.6);
+}
+
+/* ── Circular Focus Carousel Styles ── */
+.circular-collage {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  height: 380px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .circular-collage {
+    height: 440px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (min-width: 1024px) {
+  .circular-collage {
+    height: 480px;
+  }
 }
+
+.circular-cup {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition:
+    left 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.6s ease,
+    opacity 0.6s ease;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+}
+
+/* 6 slots on ellipse */
+.slot-backCenter  { left: 50%;   top: 14.5%; width: 22%; height: 26%; z-index: 10; }
+.slot-backRight   { left: 78%;   top: 27%;   width: 22%; height: 26%; z-index: 10; }
+.slot-frontRight  { left: 81%;   top: 52%;   width: 30%; height: 44%; z-index: 20; }
+.slot-frontCenter { left: 50%;   top: 65%;   width: 40%; height: 60%; z-index: 30; }
+.slot-frontLeft   { left: 19%;   top: 52%;   width: 30%; height: 44%; z-index: 20; }
+.slot-backLeft    { left: 22%;   top: 27%;   width: 22%; height: 26%; z-index: 10; }
+
+@media (min-width: 640px) {
+  .slot-backCenter  { left: 50%;   top: 14.5%; width: 18%; height: 26%; }
+  .slot-backRight   { left: 81.5%; top: 27%;   width: 18%; height: 26%; }
+  .slot-frontRight  { left: 84%;   top: 52%;   width: 26%; height: 46%; }
+  .slot-frontCenter { left: 50%;   top: 65%;   width: 35%; height: 64%; }
+  .slot-frontLeft   { left: 16%;   top: 52%;   width: 26%; height: 46%; }
+  .slot-backLeft    { left: 18.5%; top: 27%;   width: 18%; height: 26%; }
+}
+
+.layer-back  { filter: blur(4px); opacity: 0.55; }
+.layer-front { filter: blur(0px); opacity: 1; }
+

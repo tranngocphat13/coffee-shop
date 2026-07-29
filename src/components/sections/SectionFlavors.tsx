@@ -1,0 +1,202 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+interface Drink {
+  id: number;
+  name: string;
+  garnish: string;
+  description: string;
+  image: string;
+}
+
+const DRINKS: Drink[] = [
+  {
+    id: 1,
+    name: "Iced Caramel Latte",
+    garnish: "Caramel cubes & honey",
+    description: "Espresso, cold milk, ice, and rich homemade caramel syrup. The perfect balance of coffee bitterness and enveloping sweetness.",
+    image: "/images/1.png",
+  },
+  {
+    id: 2,
+    name: "Classic Iced Americano",
+    garnish: "Fresh orange slice",
+    description: "Double shot specialty espresso over crystal cold ice. Pure, crisp, and refreshing taste.",
+    image: "/images/2.png",
+  },
+  {
+    id: 3,
+    name: "Cold Brew Cream Foam",
+    garnish: "Salted cream foam & cinnamon",
+    description: "16-hour slow cold brew coffee topped with a smooth salted cream foam.",
+    image: "/images/3.png",
+  },
+  {
+    id: 4,
+    name: "Matcha Coconut Breeze",
+    garnish: "Fresh coconut & mint",
+    description: "Premium Uji Japanese matcha blended with pure natural coconut water over ice.",
+    image: "/images/4.png",
+  },
+  {
+    id: 5,
+    name: "Oreo Fudge Iced Latte",
+    garnish: "Chocolate chips & cookies",
+    description: "Rich dark chocolate sauce, espresso, milk, and crunchy Oreo cookies on top.",
+    image: "/images/5.png",
+  },
+  {
+    id: 6,
+    name: "Berry Cold Brew Tonic",
+    garnish: "Blueberries & sparkling tonic",
+    description: "Cold brew coffee infused with citrus tonic and wild berry puree.",
+    image: "/images/6.png",
+  },
+];
+
+const RING_SLOTS = [
+  "frontCenter",
+  "frontRight",
+  "backRight",
+  "backCenter",
+  "backLeft",
+  "frontLeft",
+] as const;
+
+const LAYER_MAP: Record<string, "front" | "back"> = {
+  frontCenter: "front",
+  frontRight: "front",
+  frontLeft: "front",
+  backRight: "back",
+  backCenter: "back",
+  backLeft: "back",
+};
+
+export function SectionFlavors() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? DRINKS.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === DRINKS.length - 1 ? 0 : prev + 1));
+  };
+
+  // Auto-play / Auto-rotation effect every 3.5 seconds
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev === DRINKS.length - 1 ? 0 : prev + 1));
+    }, 3500);
+
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
+  const activeDrink = DRINKS[activeIndex];
+
+  return (
+    <section
+      id="sec-3"
+      className="flex flex-col justify-center bg-[#FDFAF5] px-4 sm:px-6 py-15 lg:py-15 lg:min-h-screen relative overflow-hidden select-none"
+    >
+      <div className="mx-auto max-w-6xl w-full my-auto flex flex-col items-center">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mb-8 sm:mb-12 w-full">
+          <div className="w-full flex justify-center items-center">
+            <div className="relative inline-block text-center">
+              <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-black uppercase text-[#1F1B16] tracking-tight leading-none whitespace-nowrap text-center">
+                CHOOSE YOUR TASTE
+                <span className="font-script script normal-case text-4xl sm:text-6xl lg:text-7xl text-[#C97B3D] absolute -bottom-4 sm:-bottom-7 lg:-bottom-9 right-0 pointer-events-none select-none font-normal whitespace-nowrap">
+                  Of freshness
+                </span>
+              </h2>
+            </div>
+          </div>
+          <p className="text-sm sm:text-base text-[#7A7268] font-medium mt-6">
+            Rotate the circle to discover your favorite summer flavor
+          </p>
+        </div>
+
+        {/* Circular Focus Carousel (Pure Floating PNG Cups, No Cards/Boxes/Frames) */}
+        <div
+          className="circular-collage my-2"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {DRINKS.map((drink, idx) => {
+            const offset = (idx - activeIndex + DRINKS.length) % DRINKS.length;
+            const slot = RING_SLOTS[offset];
+            const layer = LAYER_MAP[slot];
+            const isCenter = slot === "frontCenter";
+
+            return (
+              <div
+                key={drink.id}
+                onClick={() => setActiveIndex(idx)}
+                className={`circular-cup slot-${slot} layer-${layer}`}
+              >
+                <div className="relative w-full h-full flex items-center justify-center pointer-events-auto group">
+                  <img
+                    src={drink.image}
+                    alt={drink.name}
+                    className={`w-full h-full object-contain filter transition-all duration-500 group-hover:scale-110 ${
+                      isCenter
+                        ? "drop-shadow-[0_25px_35px_rgba(40,25,10,0.28)] scale-110 sm:scale-115"
+                        : "drop-shadow-lg opacity-90 scale-105"
+                    }`}
+                    draggable={false}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Product Info & Independent Navigation Controls */}
+        <div
+          className="w-full max-w-3xl flex flex-col items-center text-center mt-6 z-40"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Active Product Name */}
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1F1B16] mb-3 tracking-tight">
+            {activeDrink.name}
+          </h3>
+
+          {/* Description Container with Independent Fixed Left & Right Arrow Buttons */}
+          <div className="relative w-full max-w-2xl flex items-center justify-center min-h-[80px] px-14 sm:px-20 mt-1">
+            {/* Independent Left Button */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-[#1F1B16] text-[#1F1B16] flex items-center justify-center hover:bg-[#1F1B16] hover:text-white transition-all active:scale-90 cursor-pointer z-10"
+              aria-label="Previous drink"
+            >
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+
+            {/* Centered Product Description (Fixed height container prevents layout jumping) */}
+            <div className="flex items-center justify-center min-h-[64px] sm:min-h-[72px]">
+              <p className="text-xs sm:text-base text-[#7A7268] text-center leading-relaxed font-medium">
+                {activeDrink.description}
+              </p>
+            </div>
+
+            {/* Independent Right Button */}
+            <button
+              onClick={handleNext}
+              className="absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-[#1F1B16] text-[#1F1B16] flex items-center justify-center hover:bg-[#1F1B16] hover:text-white transition-all active:scale-90 cursor-pointer z-10"
+              aria-label="Next drink"
+            >
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

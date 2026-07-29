@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Origen — Specialty Coffee Brand Website
 
-## Getting Started
+A premium marketing/e-commerce website for a specialty single-origin coffee brand, built with Next.js, React Three Fiber, and GSAP.
 
-First, run the development server:
+## 🚀 Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Production build
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Technology | Purpose |
+|---|---|
+| Next.js (App Router) | Framework, routing, SSR |
+| React Three Fiber + Drei | 3D rendering (three deliberate moments + splash intro) |
+| Three.js | 3D engine |
+| GSAP + ScrollTrigger | Scroll-driven animations |
+| Tailwind CSS v4 | Styling with design tokens |
 
-## Learn More
+## 🎨 3D Moments & Splash Intro
 
-To learn more about Next.js, take a look at the following resources:
+1. **Splash Intro (First Visit Only)**:
+   - Centered 3D coffee bean on pastel cream background with `"Đang rang..."` caption.
+   - Click to split bean using `THREE.Plane` clipping planes (`material.clippingPlanes = [plane]`).
+   - Smooth 0.6s split animation revealing solid interior before fading out into the site.
+   - Saved in `sessionStorage` (`hasSeenSplash`); only shows on fresh sessions.
+2. **Hero Coffee Cup**: Scale-in animation + mouse-parallax rotation.
+3. **Scroll Story**: 4-stage morph (grow → harvest → roast split bean → package) driven by scroll progress.
+4. **Product Cards**: Hover-activated rotation on desktop.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 3D Model Sources & Licenses
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Model | Source | License / Attribution |
+|---|---|---|
+| Coffee Bean Splash | [Poly by Google on Poly Pizza](https://poly.pizza/m/diD0JCvAWcR) | CC-BY 3.0 ("Coffee bean model by Poly by Google") |
+| Coffee Cup | Poly Pizza / Sketchfab CC0 | Programmatic lathe geometry |
+| Product Package | Programmatic RoundedBox | Brand colors |
 
-## Deploy on Vercel
+## 🔄 How to Swap/Update a .glb Model
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Download** the model from Poly Pizza or Sketchfab (CC0/CC-BY license)
+2. **Place** the file in `public/models/`:
+   ```
+   public/models/coffee-bean-splash.glb
+   ```
+3. **Update** the component to use `useGLTF`:
+   ```tsx
+   import { useGLTF } from '@react-three/drei'
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   function CoffeeBeanModel() {
+     const { scene } = useGLTF('/models/coffee-bean-splash.glb')
+     return <primitive object={scene} />
+   }
+
+   useGLTF.preload('/models/coffee-bean-splash.glb')
+   ```
+
+## 📐 Design Tokens
+
+### Colors
+| Name | Hex | Usage |
+|---|---|---|
+| Cream | `#F7E2CE` | Primary background |
+| Clay | `#D99B78` | Secondary bg / soft accent |
+| Rust | `#B8623A` | CTAs, links, badges (commerce/action) |
+| Espresso | `#3F2416` | Text (never pure black) |
+| Olive | `#8A9A6E` | Farm/origin sections only |
+
+## ⚡ Performance Budget Checklist
+
+- [x] LCP < 2.5s — Headline text is the LCP element
+- [x] CLS < 0.1 — Canvas containers have explicit dimensions
+- [x] Only 1 active 3D canvas at a time — IntersectionObserver pauses off-screen
+- [x] First visit splash overlay with `sessionStorage` flag
+- [x] WebGL & CSS fallbacks working
+- [x] Mobile fallbacks working (scroll story → video/CSS, product cards → static)
+
+## 📝 License
+
+Private project. Assets licensed under CC-BY 3.0 / CC0 as noted.
