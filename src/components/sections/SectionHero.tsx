@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export function SectionHero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -32,8 +33,8 @@ export function SectionHero() {
     <section
       ref={sectionRef}
       id="sec-1"
-      className={`relative min-h-[540px] sm:min-h-screen h-auto sm:h-screen w-full bg-[#FDFAF5] overflow-hidden flex flex-col items-center justify-between select-none transition-all duration-700 ease-out origin-center ${
-        visible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      className={`relative min-h-[540px] sm:min-h-screen h-auto sm:h-screen w-full bg-[#FDFAF5] overflow-hidden flex flex-col items-center justify-between select-none transition-[opacity,transform] duration-700 ease-out origin-center ${
+        visible ? "scale-100 opacity-100" : "scale-95 opacity-40"
       }`}
     >
       {/* Background Ambient Ice Sparkles */}
@@ -105,11 +106,14 @@ export function SectionHero() {
         }`}
         style={{ transformOrigin: "bottom center" }}
       >
-        <img
+        <Image
           src="/images/herosection.png"
           alt="Iced Coffee Trio — Local."
+          width={1450}
+          height={830}
           className="w-full h-auto object-contain drop-shadow-2xl"
           draggable={false}
+          preload={true}
         />
       </div>
     </section>

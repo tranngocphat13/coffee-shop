@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export function SectionRefresh() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -25,8 +26,8 @@ export function SectionRefresh() {
     <section
       ref={sectionRef}
       id="sec-2"
-      className={`relative w-full bg-[#FDFAF5] overflow-hidden -mt-[50px] sm:mt-0 select-none transition-all duration-700 ease-out origin-center lg:min-h-screen lg:h-screen flex flex-col justify-between py-8 sm:py-16 lg:py-20 px-6 lg:px-16 ${
-        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      className={`relative w-full bg-[#FDFAF5] overflow-hidden -mt-[50px] sm:mt-0 select-none transition-[opacity,transform] duration-700 ease-out origin-center lg:min-h-screen lg:h-screen flex flex-col justify-between py-8 sm:py-16 lg:py-20 px-6 lg:px-16 ${
+        isVisible ? "scale-100 opacity-100" : "scale-95 opacity-40"
       }`}
     >
       {/* === MOBILE LAYOUT (vertical flow: Title → Image → Bottom Text) === */}
@@ -58,9 +59,11 @@ export function SectionRefresh() {
             isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
           }`}
         >
-          <img
+          <Image
             src="/images/taycamlycaphe.png"
             alt="Hand holding splash iced coffee drink"
+            width={460}
+            height={520}
             className="w-full max-w-[320px] xs:max-w-[380px] sm:max-w-[460px] h-auto object-contain drop-shadow-xl translate-x-[40px]"
             draggable={false}
           />
@@ -123,9 +126,11 @@ export function SectionRefresh() {
             : "opacity-0 translate-x-40"
         }`}
       >
-        <img
+        <Image
           src="/images/taycamlycaphe.png"
           alt="Hand holding splash iced coffee drink"
+          width={850}
+          height={960}
           className="w-full max-w-[780px] xl:max-w-[850px] h-auto object-contain object-right-bottom scale-120 origin-bottom-right transform translate-y-16"
           draggable={false}
         />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, FormEvent } from "react";
+import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 
 export function SectionOfferForm() {
@@ -41,8 +42,8 @@ export function SectionOfferForm() {
     <section
       ref={sectionRef}
       id="sec-7"
-      className={`flex flex-col justify-center bg-[#FDFAF5] py-16 lg:py-24 relative overflow-hidden select-none transition-all duration-700 ease-out origin-center ${
-        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      className={`flex flex-col justify-center bg-[#FDFAF5] py-16 lg:py-24 relative overflow-hidden select-none transition-[opacity,transform] duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100" : "scale-95 opacity-40"
       }`}
     >
       <div className="mx-auto max-w-6xl w-full flex flex-col items-center px-4 sm:px-8">
@@ -74,9 +75,11 @@ export function SectionOfferForm() {
           >
             {/* Left Cup */}
             <div className="cup cup-left absolute -bottom-[40px] sm:-bottom-[60px] -left-16 sm:-left-20 lg:-left-28 h-[75%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none opacity-20 sm:opacity-100 animate-float-left">
-              <img
+              <Image
                 src="/images/hero_cup_left_transparent.png"
                 alt="Iced Matcha Drink"
+                width={300}
+                height={400}
                 className="h-full w-auto object-contain object-bottom transform rotate-[45deg] scale-90 sm:scale-120"
               />
             </div>
@@ -148,9 +151,11 @@ export function SectionOfferForm() {
 
             {/* Right Cup */}
             <div className="cup cup-right absolute -bottom-[45px] sm:-bottom-[70px] -right-16 sm:-right-20 lg:-right-28 h-[75%] sm:h-[105%] max-h-[440px] z-[2] pointer-events-none opacity-20 sm:opacity-100 animate-float-right">
-              <img
+              <Image
                 src="/images/hero_cup_right_transparent.png"
                 alt="Iced Coffee Drink"
+                width={300}
+                height={400}
                 className="h-full w-auto object-contain object-bottom transform -rotate-[45deg] scale-90 sm:scale-130"
               />
             </div>

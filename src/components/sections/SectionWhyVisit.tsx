@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Clock, MapPin, ThumbsUp } from "lucide-react";
 
 export function SectionWhyVisit() {
@@ -26,8 +27,8 @@ export function SectionWhyVisit() {
     <section
       ref={sectionRef}
       id="sec-4"
-      className={`relative min-h-screen lg:h-screen w-full bg-[#FDFAF5] overflow-hidden flex flex-col justify-center py-16 lg:py-24 px-6 sm:px-10 lg:px-16 select-none transition-all duration-700 ease-out origin-center ${
-        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      className={`relative min-h-screen lg:h-screen w-full bg-[#FDFAF5] overflow-hidden flex flex-col justify-center py-16 lg:py-24 px-6 sm:px-10 lg:px-16 select-none transition-[opacity,transform] duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100" : "scale-95 opacity-40"
       }`}
     >
       <div className="mx-auto max-w-6xl w-full my-auto flex flex-col justify-between relative z-10">
@@ -61,9 +62,11 @@ export function SectionWhyVisit() {
             }`}
           >
             <div className="relative w-full max-w-[360px] xs:max-w-[430px] lg:max-w-[460px] h-[280px] xs:h-[320px] sm:h-[430px] bg-[#F3EAD9] rounded-[28px] sm:rounded-[40px] shadow-sm overflow-visible flex items-center justify-center">
-              <img
+              <Image
                 src="/images/4.png"
                 alt="Enlarged Tilted Product Shot 4.png"
+                width={440}
+                height={550}
                 className="absolute -top-[106px] xs:-top-[114px] sm:-top-24 lg:-top-28 left-1/2 -translate-x-1/2 rotate-[16deg] w-[88%] sm:w-[92%] max-w-[320px] xs:max-w-[400px] sm:max-w-[440px] h-auto object-contain drop-shadow-2xl hover:scale-105 transition-all duration-500 select-none pointer-events-none"
               />
             </div>

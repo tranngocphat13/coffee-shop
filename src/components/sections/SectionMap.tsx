@@ -68,8 +68,8 @@ export function SectionMap() {
     <section
       ref={sectionRef}
       id="sec-6"
-      className={`flex flex-col justify-center bg-[#FDFAF5] px-6 py-20 lg:py-28 lg:px-12 relative overflow-hidden select-none transition-all duration-700 ease-out origin-center ${
-        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      className={`flex flex-col justify-center bg-[#FDFAF5] px-6 py-20 lg:py-28 lg:px-12 relative overflow-hidden select-none transition-[opacity,transform] duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100" : "scale-95 opacity-40"
       }`}
     >
       <div className="mx-auto max-w-6xl w-full my-auto">
@@ -184,13 +184,21 @@ export function SectionMap() {
 
             {/* Embed Map Frame */}
             <div className="w-full h-full min-h-[300px] sm:min-h-[420px] rounded-2xl overflow-hidden relative bg-[#E5E3DF]">
-              <iframe
-                title={activeStore.name}
-                src={activeStore.mapEmbedUrl}
-                className="w-full h-full border-0 absolute inset-0 filter saturate-[0.85] contrast-[1.05]"
-                loading="lazy"
-                allowFullScreen
-              />
+              {STORES.map((store) => {
+                const isActive = store.id === activeStoreId;
+                return (
+                  <iframe
+                    key={store.id}
+                    title={store.name}
+                    src={store.mapEmbedUrl}
+                    className={`w-full h-full border-0 absolute inset-0 filter saturate-[0.85] contrast-[1.05] transition-opacity duration-300 ${
+                      isActive ? "opacity-100 pointer-events-auto z-10" : "opacity-0 pointer-events-none z-0"
+                    }`}
+                    loading="lazy"
+                    allowFullScreen
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

@@ -9,33 +9,43 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState("sec-1");
 
   useEffect(() => {
+    // 1. Light-weight scroll listener for header background style (no layout thrashing)
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      const sections = [
-        { id: "sec-1", label: "Hero" },
-        { id: "sec-3", label: "Menu" },
-        { id: "sec-7", label: "Discounts" },
-        { id: "sec-5", label: "Gallery" },
-        { id: "sec-6", label: "Locations" },
-      ];
-
-      const scrollPosition = window.scrollY + 200;
-      for (const sec of sections) {
-        const el = document.getElementById(sec.id);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sec.id);
-            break;
-          }
-        }
-      }
+      const isScrolled = window.scrollY > 20;
+      setScrolled((prevScrolled) => {
+        if (prevScrolled !== isScrolled) return isScrolled;
+        return prevScrolled;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    // 2. IntersectionObserver for active section tracking (highly performant, runs off-main-thread)
+    const sections = ["sec-1", "sec-3", "sec-7", "sec-5", "sec-6"];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-25% 0px -35% 0px", // Focus area in the middle of viewport
+      threshold: 0.1, // Trigger when at least 10% of the section is visible in focus area
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const scrollToSection = (id: string) => {

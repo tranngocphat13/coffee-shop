@@ -143,12 +143,17 @@ h1 span.sub {
 
 .circular-cup {
   position: absolute;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: translate3d(
+    calc(var(--x, 50%) - 50%),
+    calc(var(--y, 50%) - 50%),
+    0
+  ) scale(var(--scale, 1));
   transition:
-    left 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    top 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
     filter 0.6s ease,
     opacity 0.6s ease;
   cursor: pointer;
@@ -156,33 +161,57 @@ h1 span.sub {
   background: transparent;
 }
 
-/* 6 slots on ellipse */
-.slot-backCenter  { left: 50%;   top: 14.5%; width: 22%; height: 26%; z-index: 10; }
-.slot-backRight   { left: 78%;   top: 27%;   width: 22%; height: 26%; z-index: 10; }
-.slot-frontRight  { left: 81%;   top: 52%;   width: 30%; height: 44%; z-index: 20; }
-.slot-frontCenter { left: 50%;   top: 65%;   width: 40%; height: 60%; z-index: 30; }
-.slot-frontLeft   { left: 19%;   top: 52%;   width: 30%; height: 44%; z-index: 20; }
-.slot-backLeft    { left: 22%;   top: 27%;   width: 22%; height: 26%; z-index: 10; }
+/* Base size definition for inner content */
+.circular-cup-inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 60%;
+}
+
+@media (max-width: 480px) {
+  .circular-cup-inner {
+    width: 44%;
+    height: 58%;
+  }
+}
+
+@media (min-width: 640px) {
+  .circular-cup-inner {
+    width: 35%;
+    height: 64%;
+  }
+}
+
+/* 6 slots on ellipse using hardware-accelerated translate & scale */
+.slot-backCenter  { --x: 50%;   --y: 14.5%; --scale: 0.55; z-index: 10; }
+.slot-backRight   { --x: 78%;   --y: 27%;   --scale: 0.55; z-index: 10; }
+.slot-frontRight  { --x: 81%;   --y: 52%;   --scale: 0.75; z-index: 20; }
+.slot-frontCenter { --x: 50%;   --y: 65%;   --scale: 1.0;  z-index: 30; }
+.slot-frontLeft   { --x: 19%;   --y: 52%;   --scale: 0.75; z-index: 20; }
+.slot-backLeft    { --x: 22%;   --y: 27%;   --scale: 0.55; z-index: 10; }
 
 @media (max-width: 480px) {
   .circular-collage {
     height: 310px;
   }
-  .slot-backCenter  { left: 50%;   top: 15%;   width: 24%; height: 26%; }
-  .slot-backRight   { left: 78%;   top: 28%;   width: 24%; height: 26%; }
-  .slot-frontRight  { left: 82%;   top: 54%;   width: 32%; height: 44%; }
-  .slot-frontCenter { left: 50%;   top: 64%;   width: 44%; height: 58%; }
-  .slot-frontLeft   { left: 18%;   top: 54%;   width: 32%; height: 44%; }
-  .slot-backLeft    { left: 22%;   top: 28%;   width: 24%; height: 26%; }
+  .slot-backCenter  { --x: 50%;   --y: 15%;   --scale: 0.55; }
+  .slot-backRight   { --x: 78%;   --y: 28%;   --scale: 0.55; }
+  .slot-frontRight  { --x: 82%;   --y: 54%;   --scale: 0.73; }
+  .slot-frontCenter { --x: 50%;   --y: 64%;   --scale: 1.0;  }
+  .slot-frontLeft   { --x: 18%;   --y: 54%;   --scale: 0.73; }
+  .slot-backLeft    { --x: 22%;   --y: 28%;   --scale: 0.55; }
 }
 
 @media (min-width: 640px) {
-  .slot-backCenter  { left: 50%;   top: 14.5%; width: 18%; height: 26%; }
-  .slot-backRight   { left: 81.5%; top: 27%;   width: 18%; height: 26%; }
-  .slot-frontRight  { left: 84%;   top: 52%;   width: 26%; height: 46%; }
-  .slot-frontCenter { left: 50%;   top: 65%;   width: 35%; height: 64%; }
-  .slot-frontLeft   { left: 16%;   top: 52%;   width: 26%; height: 46%; }
-  .slot-backLeft    { left: 18.5%; top: 27%;   width: 18%; height: 26%; }
+  .slot-backCenter  { --x: 50%;   --y: 14.5%; --scale: 0.51; }
+  .slot-backRight   { --x: 81.5%; --y: 27%;   --scale: 0.51; }
+  .slot-frontRight  { --x: 84%;   --y: 52%;   --scale: 0.74; }
+  .slot-frontCenter { --x: 50%;   --y: 65%;   --scale: 1.0;  }
+  .slot-frontLeft   { --x: 16%;   --y: 52%;   --scale: 0.74; }
+  .slot-backLeft    { --x: 18.5%; --y: 27%;   --scale: 0.51; }
 }
 
 .layer-back  { filter: blur(4px); opacity: 0.55; }

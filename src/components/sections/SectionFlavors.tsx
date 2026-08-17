@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Drink {
@@ -140,8 +141,8 @@ export function SectionFlavors() {
     <section
       ref={sectionRef}
       id="sec-3"
-      className={`flex flex-col justify-center bg-[#FDFAF5] px-4 sm:px-6 py-12 sm:py-15 lg:py-15 lg:min-h-screen relative overflow-hidden select-none transition-all duration-700 ease-out origin-center ${
-        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      className={`flex flex-col justify-center bg-[#FDFAF5] px-4 sm:px-6 py-12 sm:py-15 lg:py-15 lg:min-h-screen relative overflow-hidden select-none transition-[opacity,transform] duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100" : "scale-95 opacity-40"
       }`}
     >
       <div className="mx-auto max-w-6xl w-full my-auto flex flex-col items-center">
@@ -186,16 +187,17 @@ export function SectionFlavors() {
                 onClick={() => setActiveIndex(idx)}
                 className={`circular-cup slot-${slot} layer-${layer}`}
               >
-                <div className="relative w-full h-full flex items-center justify-center pointer-events-auto group">
-                  <img
+                <div className="circular-cup-inner relative flex items-center justify-center pointer-events-auto group">
+                  <Image
                     src={drink.image}
                     alt={drink.name}
+                    width={400}
+                    height={500}
                     className={`w-full h-full object-contain filter transition-all duration-500 group-hover:scale-110 ${
                       isCenter
                         ? "drop-shadow-[0_25px_35px_rgba(40,25,10,0.28)] scale-110 sm:scale-115"
                         : "drop-shadow-lg opacity-90 scale-105"
                     }`}
-                    draggable={false}
                   />
                 </div>
               </div>

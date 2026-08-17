@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface VibePhoto {
@@ -77,8 +78,8 @@ export function SectionVibes() {
     <section
       ref={sectionRef}
       id="sec-5"
-      className={`flex flex-col justify-center bg-[#FDFAF5] px-4 sm:px-6 py-14 sm:py-20 lg:py-28 lg:px-12 relative overflow-hidden select-none transition-all duration-700 ease-out origin-center ${
-        isVisible ? "scale-100 opacity-100 filter-none" : "scale-90 opacity-40 blur-xs"
+      className={`flex flex-col justify-center bg-[#FDFAF5] px-4 sm:px-6 py-14 sm:py-20 lg:py-28 lg:px-12 relative overflow-hidden select-none transition-[opacity,transform] duration-700 ease-out origin-center ${
+        isVisible ? "scale-100 opacity-100" : "scale-95 opacity-40"
       }`}
     >
       <div className="mx-auto max-w-6xl w-full my-auto">
@@ -141,9 +142,11 @@ export function SectionVibes() {
               }`}
               style={{ transitionDelay: `${index * 120}ms` }}
             >
-              <img
+              <Image
                 src={vibe.image}
                 alt={vibe.location}
+                width={300}
+                height={400}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
